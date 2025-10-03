@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NUR FUTURA MARKETING</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --brand: #8B2C00; /* Nur Futura deep brand */
+      --gold: #f5b041;
+      --dark: #111;
+      --light: #f9f9f9;
+      --glass: rgba(255,255,255,0.03);
+      --accent-glow: 0 8px 28px rgba(139,44,0,0.18);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--light);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    img{max-width:100%;border-radius:10px;display:block}
+
+    /* Header */
+    header{background:rgba(0,0,0,.9);backdrop-filter:blur(8px);color:#fff;padding:15px 30px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:999;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+    header h1{font-family:'Playfair Display',serif;font-size:22px;display:flex;align-items:center;gap:10px}
+    .menu-toggle{font-size:24px;cursor:pointer;display:none}
+    nav{display:flex;gap:15px;align-items:center}
+    nav a{color:#fff;text-decoration:none;font-weight:600;position:relative;padding:8px 6px;border-radius:6px}
+    nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--gold);transition:.3s}
+    nav a:hover::after{width:100%}
+    nav a.btn-tool{background:linear-gradient(90deg,var(--brand),var(--gold));padding:8px 12px;border-radius:24px;color:#000;font-weight:700}
+    @media(max-width:768px){
+      nav{display:none;flex-direction:column;background:#000;position:absolute;top:60px;right:20px;padding:15px;border-radius:8px}
+      nav.active{display:flex}
+      .menu-toggle{display:block;color:#fff}
+      .newsletter input{width:90%}
+    }
+
+    /* Hero */
+    .hero{background:url('images/heroo.png') center/cover no-repeat;color:#fff;padding:100px 20px 80px;text-align:center;position:relative;overflow:hidden}
+    .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.65))}
+    .hero h2,.hero p,.hero button,.hero a{position:relative;z-index:2}
+    .hero h2{font-size:36px;margin-bottom:15px;font-family:'Playfair Display',serif;animation:fadeInDown 1s ease}
+    .hero p{animation:fadeInUp 1.2s ease;margin-bottom:18px}
+    .btn{padding:12px 22px;border:none;border-radius:30px;font-weight:600;cursor:pointer;margin:5px;transition:.3s;display:inline-block;text-decoration:none;text-align:center}
+    .btn-primary{background:var(--gold);color:#000}
+    .btn-primary:hover{background:#ffd27f}
+    .btn-ghost{background:transparent;color:#fff;border:1px solid #fff}
+    .btn-ghost:hover{background:#fff;color:var(--brand)}
+
+    /* Sections */
+    section{padding:70px 20px;animation:fadeUp 1.2s ease}
+    .section-title{text-align:center;font-size:28px;color:var(--gold);margin-bottom:40px;font-family:'Playfair Display',serif;position:relative}
+    .section-title::after{content:'';display:block;width:80px;height:3px;background:var(--brand);margin:10px auto;border-radius:2px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}
+    .card{background:#1a1a1a;padding:25px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,.4);transition:.4s;animation:fadeInUp 1.2s ease}
+    .card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,.6)}
+    .card i{font-size:30px;color:var(--gold);margin-bottom:12px}
+
+    /* About */
+    #about .card p{margin:18px 0;font-size:16px;line-height:1.8}
+    #about strong{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);display:block;margin-bottom:6px}
+
+    /* Hall of Fame */
+    .hall{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+    .artist{position:relative;overflow:hidden;border-radius:12px}
+    .artist img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:.4s}
+    .artist:hover img{transform:scale(1.08)}
+    .artist .overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;transition:.3s;display:flex;align-items:center;justify-content:center}
+    .artist:hover .overlay{opacity:1}
+    .artist .overlay i{font-size:28px;color:#fff;background:var(--brand);padding:12px;border-radius:50%}
+    .artist p{text-align:center;margin-top:10px;font-weight:600;font-family:'Playfair Display',serif;color:var(--gold)}
+
+    /* Services - Accordion */
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+    .service-card{background:#141414;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);box-shadow:var(--accent-glow);transition:transform .25s}
+    .service-card:hover{transform:translateY(-6px)}
+    .service-header{display:flex;gap:12px;align-items:center;padding:18px;cursor:pointer}
+    .service-header i{font-size:26px;color:var(--gold);width:44px;height:44px;background:linear-gradient(180deg, rgba(245,176,65,0.1), rgba(139,44,0,0.06));display:flex;align-items:center;justify-content:center;border-radius:10px}
+    .service-header h4{font-size:18px;margin:0}
+    .service-body{padding:0 18px 18px 18px;display:none;border-top:1px dashed rgba(255,255,255,0.03)}
+    .service-body p{margin:12px 0;color:#ddd}
+    .service-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+    .service-option{background:#1b1b1b;padding:10px;border-radius:8px;font-size:14px;border:1px solid rgba(255,255,255,0.02)}
+    .service-toggle{margin-left:auto;color:var(--gold);font-weight:700}
+
+    /* Newsletter (replacement for portfolio) */
+    #portfolio-newsletter .card{text-align:center}
+    .newsletter-row{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
+    .placeholder{width:320px;height:200px;background:linear-gradient(180deg,#161616,#0f0f0f);border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(255,255,255,0.04)}
+    .placeholder small{color:#aaa;display:block;text-align:center}
+    #portfolio-newsletter form{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+    #portfolio-newsletter input[type="email"]{padding:12px;border-radius:30px;border:none;background:#2a2a2a;color:#fff;min-width:260px}
+    #portfolio-newsletter button{padding:12px 18px;border-radius:30px;border:none;background:var(--gold);color:#000;font-weight:700;cursor:pointer}
+
+    /* Reviews */
+    .reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}
+    .review{background:#1a1a1a;padding:25px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.4);animation:zoomIn 1.2s ease}
+    .review strong{display:block;margin-top:12px;color:var(--gold)}
+
+    /* Contact */
+    .contact form{display:grid;gap:14px;max-width:520px;margin:auto}
+    .contact input,.contact textarea{padding:14px;border:none;border-radius:8px;background:#2a2a2a;color:#fff}
+    .contact button{padding:14px;background:var(--gold);color:#000;border:none;border-radius:30px;font-weight:600;cursor:pointer}
+    .contact-info{text-align:center;margin-top:20px;color:#ccc}
+    .contact-info p{margin:5px 0}
+    .contact-info a{color:var(--gold);text-decoration:none}
+    .contact-info a:hover{text-decoration:underline}
+
+    /* Footer */
+    footer{text-align:center;background:#000;color:#aaa;padding:25px;margin-top:50px;font-size:14px}
+    footer i{margin:0 10px;cursor:pointer}
+
+    /* Floating Newsletter */
+    .floating-newsletter{position:fixed;bottom:20px;right:20px;z-index:1001}
+    .floating-newsletter a i{background:var(--brand);color:#fff;padding:18px;border-radius:50%;font-size:26px;box-shadow:0 6px 18px rgba(0,0,0,.5);display:inline-block;transition:transform .18s}
+    .floating-newsletter a i:hover{transform:scale(1.08);background:var(--gold);color:#000}
+    .pulse{animation:pulse 2.2s infinite}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+    /* Popup Partnership */
+    .popup{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;visibility:hidden;opacity:0;transition:.3s;z-index:1000}
+    .popup.active{visibility:visible;opacity:1}
+    .popup-card{background:linear-gradient(180deg,#111,#0b0b0b);color:#fff;padding:26px;border-radius:12px;max-width:420px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.6);animation:popupIn .9s ease}
+    .popup-brand{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:6px}
+    .popup-brand img{height:34px;border-radius:6px;filter:drop-shadow(0 6px 18px rgba(139,44,0,0.2))}
+    .popup-card h3{font-family:'Playfair Display',serif;color:var(--gold);margin-bottom:6px}
+    .popup-card p{color:#ddd}
+    .popup-actions{display:flex;gap:10px;justify-content:center;margin-top:14px}
+    .popup-card .btn-visit{background:var(--brand);color:#fff;padding:10px 16px;border-radius:30px;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(139,44,0,0.18);}
+    .popup-card .btn-close{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;padding:10px 16px;border-radius:30px;cursor:pointer}
+    .glow-ring{position:absolute;inset:-40px;-webkit-mask:radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0));pointer-events:none;filter:blur(28px)}
+
+    /* Cookie Banner */
+    .cookie-banner{position:fixed;left:20px;right:20px;bottom:18px;background:linear-gradient(90deg,rgba(17,17,17,0.98), #0f0f0f);padding:14px;border-radius:12px;display:flex;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 6px 20px rgba(0,0,0,.6);z-index:1100}
+    .cookie-banner p{color:#ddd;margin:0;flex:1}
+    .cookie-actions{display:flex;gap:8px;align-items:center}
+    .cookie-actions button{padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+    .cookie-accept{background:var(--gold);color:#000}
+    .cookie-decline{background:transparent;border:1px solid rgba(255,255,255,0.04);color:#fff}
+
+    /* Popup & Animations */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes zoomIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+    @keyframes popupIn{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @media (max-width:520px){
+      .popup-card{max-width:92%;padding:18px}
+      .placeholder{width:100%;height:160px}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><img src="images/logo.png" alt="NUR Futura Logo" height="42"> NUR FUTURA</h1>
+  <i class="fa-solid fa-bars menu-toggle" aria-hidden="true"></i>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#services">7-Fold Package</a>
+    <!-- Portfolio removed; replaced with portfolio-newsletter section below -->
+    <a href="#hall">Hall of Fame</a>
+    <a href="#portfolio-newsletter">Newsletter</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+    <!-- Added AI tool link (NexaCore Labs) -->
+    <a href="https://clickup.com/lp/brain?utm_source=google&utm_medium=cpc&utm_campaign=gs_cpc_emea-lv_nnc_nb_trial_all-devices_troas_lp_x_all-departments_x_ai-writing_comp-misc&utm_content=all-countries_kw-target_text_all-industries_all-features_all-use-cases_ai-writer&utm_term=writer%20ai%20alternative&utm_creative=768738679624__&utm_custom1=&utm_custom2=&utm_lptheme=&utm_lpmod=&utm_mt=b&gad_source=1&gad_campaignid=22883169743&gbraid=0AAAAACR5vIJjNfL2GmPQQf8QFtjlTmBnQ&gclid=CjwKCAjw6P3GBhBVEiwAJPjmLlwrMoBsd-9Y-rGhYQF_Gs_3-hsUtnSIxtuTwoUWqKj6LVm3tkhP7hoCu6AQAvD_BwE" target="_blank" rel="noopener" class="btn-tool">NexaCore AI</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2><i class="fa-solid fa-star"></i> Perception is Reality, Image is Everything</h2>
+  <p>We don’t just build campaigns — we build unforgettable brands.</p>
+  <a href="#services" class="btn btn-primary">Start Project</a>
+  <a href="#about" class="btn btn-ghost">Learn More</a>
+</section>
+
+<section id="about">
+  <h3 class="section-title">About Us</h3>
+  <div class="card">
+    <p><strong>Mission Statement</strong> Our mission is to bring brands, artistes, and individuals into the limelight.</p>
+    <p><strong>Vision Statement</strong> Illuminating paths of our clients, unlocking full potentials, guiding them towards success, redefining the marketing landscape & leaving a legacy.</p>
+    <p><strong>Who We Are</strong> We are a revolutionary force in the marketing landscape. With expertise in strategy, creativity & technology, we drive real results. We are your partner in achieving marketing excellence.</p>
+  </div>
+</section>
+
+<section id="services">
+  <h3 class="section-title">7-FOLD SERVICE PACKAGE</h3>
+  <div class="services-grid" role="list">
+    <!-- Each service card is now an accordion item -->
+    <div class="service-card" role="listitem">
+      <div class="service-header" data-target="s1" tabindex="0" aria-expanded="false">
+        <i class="fa-solid fa-briefcase"></i>
+        <h4>Brand Management</h4>
+        <span class="service-toggle">View</span>
+      </div>
+      <div id="s1" class="service-body" aria-hidden="true">
+        <p>Full brand strategy, visual identity, positioning, content roadmap and campaign playbooks.</p>
+        <div class="service-options">
+          <div class="service-option">Identity & Logo refresh</div>
+          <div class="service-option">Brand Strategy & Positioning</div>
+          <div class="service-option">Creative Direction</div>
+          <div class="service-option">Brand Guidelines</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-header" data-target="s2" tabindex="0" aria-expanded="false">
+        <i class="fa-solid fa-user-tie"></i>
+        <h4>Artist Management</h4>
+        <span class="service-toggle">View</span>
+      </div>
+      <div id="s2" class="service-body" aria-hidden="true">
+        <p>Career strategy, release planning, bookings, PR & sponsorship matchmaking.</p>
+        <div class="service-options">
+          <div class="service-option">Release Roadmap</div>
+          <div class="service-option">Booking & Tour Support</div>
+          <div class="service-option">Sponsorships & Endorsements</div>
+          <div class="service-option">Artist Branding</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-header" data-target="s3" tabindex="0" aria-expanded="false">
+        <i class="fa-solid fa-calendar-days"></i>
+        <h4>Event Management</h4>
+        <span class="service-toggle">View</span>
+      </div>
+      <div id="s3" class="service-body" aria-hidden="true">
+        <p>End-to-end event planning, stage design, logistics and activation that create memorable experiences.</p>
+        <div class="service-options">
+          <div class="service-option">Event Concept & Design</div>
+          <div class="service-option">Logistics & On-ground Ops</div>
+          <div class="service-option">Sponsorship Activation</div>
+          <div class="service-option">Post-event Analysis</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-header" data-target="s4" tabindex="0" aria-expanded="false">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h4>Reputation Management</h4>
+        <span class="service-toggle">View</span>
+      </div>
+      <div id="s4" class="service-body" aria-hidden="true">
+        <p>Protect and elevate public image through proactive narrative control and crisis support.</p>
+        <div class="service-options">
+          <div class="service-option">Crisis Response</div>
+          <div class="service-option">Media Training</div>
+          <div class="service-option">Monitoring & Reporting</div>
+          <div class="service-option">Narrative Crafting</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-header" data-target="s5" tabindex="0" aria-expanded="false">
+        <i class="fa-solid fa-bullhorn"></i>
+        <h4>Digital Marketing</h4>
+        <span class="service-toggle">View</span>
+      </div>
+      <div id="s5" class="service-body" aria-hidden="true">
+        <p>Data-driven campaigns across social, search and programmatic channels to grow awareness and revenue.</p>
+        <div class="service-options">
+          <div class="service-option">Paid Social & Ads</div>
+          <div class="service-option">SEO & Content</div>
+          <div class="service-option">Analytics & Optimization</div>
+          <div class="service-option">Performance Creative</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-header" data-target="s6" tabindex="0" aria-expanded="false">
+        <i class="fa-solid fa-comments"></i>
+        <h4>Public Relations</h4>
+        <span class="service-toggle">View</span>
+      </div>
+      <div id="s6" class="service-body" aria-hidden="true">
+        <p>Local and international press outreach, storytelling and relationships to place your brand where it matters.</p>
+        <div class="service-options">
+          <div class="service-option">Press Strategy</div>
+          <div class="service-option">Media Relations</div>
+          <div class="service-option">Feature Pitches</div>
+          <div class="service-option">Press Kits</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-header" data-target="s7" tabindex="0" aria-expanded="false">
+        <i class="fa-solid fa-handshake"></i>
+        <h4>Consulting Services</h4>
+        <span class="service-toggle">View</span>
+      </div>
+      <div id="s7" class="service-body" aria-hidden="true">
+        <p>Tailored advisory: monetization, growth strategy, partnerships and product-market fit guidance.</p>
+        <div class="service-options">
+          <div class="service-option">Growth Strategy</div>
+          <div class="service-option">Partnerships</div>
+          <div class="service-option">Monetization Models</div>
+          <div class="service-option">Workshops & Training</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Replaced Portfolio section with a dedicated newsletter & image showcase -->
+<section id="portfolio-newsletter">
+  <h3 class="section-title">Newsletter & Highlights</h3>
+  <div class="card">
+    <i class="fa-solid fa-envelope-open-text"></i>
+    <p>Stay updated with our latest campaigns, tips, success stories and exclusive NexaCore Labs AI tool previews.</p>
+
+    <div class="newsletter-row" aria-hidden="false">
+      <!-- Replace 'src' with your image file path -->
+      <img src="images/pla2.png" alt="Newsletter image 1 — campaign highlight" class="placeholder-img">
+      <img src="images/pla1.png" alt="Newsletter image 1 — campaign highlight" class="placeholder-img">
+      <img src="images/pla.png" alt="Newsletter image 2 — case highlight" class="placeholder-img">
+    </div>
+
+    <form action="https://formspree.io/f/xnnbykjd" method="POST" aria-label="Newsletter signup">
+      <input type="email" name="newsletter" placeholder="Enter your email" required>
+      <button type="submit"><i class="fa-solid fa-paper-plane"></i> Subscribe</button>
+    </form>
+
+    <p style="margin-top:12px;font-size:13px;color:#bbb">By subscribing you accept our <a href="#cookie" style="color:var(--gold);text-decoration:underline">cookie policy</a>.</p>
+  </div>
+</section>
+
+
+<section id="hall">
+  <h3 class="section-title">Hall of Fame</h3>
+  <div class="hall">
+    <div class="artist">
+      <img src="images/goshen.png" alt="Artiste 1">
+      <div class="overlay">
+        <a href="https://www.instagram.com/goshen_dt?igsh=MXZ3NWQ0Z3kwbW5uNg==" target="_blank" rel="noopener">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      </div>
+      <p>GOSHEN</p>
+    </div>
+    <div class="artist">
+      <img src="images/tyira.png" alt="Artiste 2">
+      <div class="overlay">
+        <a href="https://www.instagram.com/tyira_?igsh=MWozanltOGhhYTJ6Zw==" target="_blank" rel="noopener">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      </div>
+      <p>TYIRA</p>
+    </div>
+    <div class="artist">
+      <img src="images/vidarr.jpg" alt="Artiste 3">
+      <div class="overlay">
+        <a href="https://www.instagram.com/kvngvidarr?igsh=eHhub25sODVvNjkz" target="_blank" rel="noopener">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      </div>
+      <p>KVNGVIDARR</p>
+    </div>
+  </div>
+</section>
+
+<section id="newsletter">
+  <h3 class="section-title">Join Our Newsletter</h3>
+  <div class="card">
+    <i class="fa-solid fa-envelope-open-text"></i>
+    <p>Stay updated with our latest campaigns, tips, and success stories.</p>
+    <form action="https://formspree.io/f/xnnbykjd" method="POST">
+      <input type="email" name="newsletter" placeholder="Enter your email" required>
+      <button type="submit"><i class="fa-solid fa-paper-plane"></i> Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<section id="reviews">
+  <h3 class="section-title">Client Reviews</h3>
+  <div class="reviews">
+    <div class="review"><i class="fa-solid fa-quote-left"></i><p>“Nur Futura made us a household name with bold campaigns.”</p><strong>- Adeola</strong></div>
+    <div class="review"><i class="fa-solid fa-quote-left"></i><p>“From ideas to execution, they are simply the best.”</p><strong>- Babatunde</strong></div>
+    <div class="review"><i class="fa-solid fa-quote-left"></i><p>“Our billboard launch was unforgettable — thanks to Nur Futura.”</p><strong>- Yetunde</strong></div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h3 class="section-title">Contact Us</h3>
+  <form action="https://formspree.io/f/xnnbykjd" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" rows="5" placeholder="Your Message"></textarea>
+    <button type="submit"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+  </form>
+  <div class="contact-info">
+    <p><i class="fa-solid fa-envelope"></i> <a href="mailto:nurfutura@gmail.com">nurfutura@gmail.com</a></p>
+    <p><i class="fa-solid fa-phone"></i> <a href="tel:+2349160359275">+234 916 035 9275</a></p>
+    <p><i class="fa-solid fa-location-dot"></i> Lagos, Nigeria</p>
+  </div>
+</section>
+
+<footer>
+  <p>© <span id="year"></span> NUR FUTURA MARKETING | © 
+    <strong><a href="https://instagram.com/nexacorelabs" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:none;">NexaCore Labs</a></strong>
+  </p>
+  <div>
+    <a href="https://www.facebook.com/share/1GsZFKot85/?mibextid=wwXIfr" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="https://twitter.com/nurfutura" target="_blank" rel="noopener"><i class="fa-brands fa-twitter"></i></a>
+    <a href="https://instagram.com/nur.futura" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.linkedin.com/in/nur-futura-marketing-558a85356?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i></a>
+  </div>
+</footer>
+
+<!-- Floating Newsletter -->
+<div class="floating-newsletter" aria-hidden="false">
+  <a href="https://substack.com/@nurfuturamarketing?r=6fzf9h&utm_medium=ios" target="_blank" rel="noopener" title="Subscribe to our Newsletter">
+    <i class="fa-solid fa-envelope-open-text pulse" aria-hidden="true"></i>
+  </a>
+</div>
+
+<!-- Popup Partnership (NexaCore Labs) -->
+<div id="popup" class="popup" role="dialog" aria-modal="true" aria-labelledby="popupTitle" aria-describedby="popupDesc">
+  <div class="popup-card" role="document">
+    <div class="popup-brand">
+      <img src="images/logo.png" alt="Nur Futura logo">
+      <img src="images/nexacorelogo.png" alt="NexaCore Labs logo" onerror="this.style.display='none'">
+    </div>
+    <h3 id="popupTitle">Nur Futura × NexaCore Labs</h3>
+    <p id="popupDesc">We’re excited to announce our partnership with NexaCore Labs — bringing you new AI-powered creative tools and smarter campaigns. Discover a preview now.</p>
+    <div class="popup-actions">
+      <button class="btn-visit" id="visitToolBtn">Open NexaCore AI Tool</button>
+      <button class="btn-close" id="closePopupBtn">Continue</button>
+    </div>
+    <div class="glow-ring" aria-hidden="true"></div>
+  </div>
+</div>
+
+<!-- Cookie Banner -->
+<div id="cookieBanner" class="cookie-banner" style="display:none" role="region" aria-label="Cookie consent">
+  <p>We use cookies to improve your experience and show a personalised popup about our NexaCore Labs AI tool. By accepting, you agree to our cookie use.</p>
+  <div class="cookie-actions">
+    <button id="acceptCookies" class="cookie-accept">Accept</button>
+    <button id="declineCookies" class="cookie-decline">Decline</button>
+  </div>
+</div>
+
+<script>
+  // Set year
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Mobile menu toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('nav');
+  menuToggle.addEventListener('click', () => { nav.classList.toggle('active') });
+
+  // Accessibility: allow Enter on service headers to toggle
+  function togglePanel(headerEl) {
+    const targetId = headerEl.dataset.target;
+    const body = document.getElementById(targetId);
+    const expanded = headerEl.getAttribute('aria-expanded') === 'true';
+    // close any other open panels (optional) - keep single open
+    document.querySelectorAll('.service-header').forEach(h => {
+      if (h !== headerEl) {
+        h.setAttribute('aria-expanded','false');
+        const other = document.getElementById(h.dataset.target);
+        if (other) other.style.display = 'none';
+      }
+    });
+    if (!expanded) {
+      headerEl.setAttribute('aria-expanded','true');
+      if (body) { body.style.display = 'block'; body.setAttribute('aria-hidden','false'); }
+    } else {
+      headerEl.setAttribute('aria-expanded','false');
+      if (body) { body.style.display = 'none'; body.setAttribute('aria-hidden','true'); }
+    }
+  }
+
+  document.querySelectorAll('.service-header').forEach(header => {
+    header.addEventListener('click', () => togglePanel(header));
+    header.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); togglePanel(header); }
+    });
+  });
+
+  // Popup logic: show the partnership popup once unless closed (keeps minimal intrusiveness).
+  const popup = document.getElementById('popup');
+  const closePopupBtn = document.getElementById('closePopupBtn');
+  const visitToolBtn = document.getElementById('visitToolBtn');
+
+  function showPopup() {
+    // if popupSeen stored, don't show again
+    const seen = localStorage.getItem('nurfutura_popup_seen');
+    if (!seen) {
+      popup.classList.add('active');
+    }
+  }
+
+  function closePopup() {
+    popup.classList.remove('active');
+    // mark seen so it doesn't reappear
+    localStorage.setItem('nurfutura_popup_seen', '1');
+  }
+
+  closePopupBtn.addEventListener('click', closePopup);
+  // allow clicking outside popup to close
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) closePopup();
+  });
+
+  // Visit tool button opens NexaCore AI tool in new tab and mark popup seen
+  visitToolBtn.addEventListener('click', () => {
+    window.open('https://nexacorelabs.com/ai-toolhttps://clickup.com/lp/brain?utm_source=google&utm_medium=cpc&utm_campaign=gs_cpc_emea-lv_nnc_nb_trial_all-devices_troas_lp_x_all-departments_x_ai-writing_comp-misc&utm_content=all-countries_kw-target_text_all-industries_all-features_all-use-cases_ai-writer&utm_term=writer%20ai%20alternative&utm_creative=768738679624__&utm_custom1=&utm_custom2=&utm_lptheme=&utm_lpmod=&utm_mt=b&gad_source=1&gad_campaignid=22883169743&gbraid=0AAAAACR5vIJjNfL2GmPQQf8QFtjlTmBnQ&gclid=CjwKCAjw6P3GBhBVEiwAJPjmLlwrMoBsd-9Y-rGhYQF_Gs_3-hsUtnSIxtuTwoUWqKj6LVm3tkhP7hoCu6AQAvD_BwE', '_blank', 'noopener');
+    localStorage.setItem('nurfutura_popup_seen', '1');
+    closePopup();
+  });
+
+  // Cookie banner logic
+  const cookieBanner = document.getElementById('cookieBanner');
+  const acceptCookies = document.getElementById('acceptCookies');
+  const declineCookies = document.getElementById('declineCookies');
+
+  function showCookieBannerIfNeeded() {
+    const consent = localStorage.getItem('nurfutura_cookie_consent');
+    if (!consent) {
+      cookieBanner.style.display = 'flex';
+    } else {
+      cookieBanner.style.display = 'none';
+    }
+  }
+
+  acceptCookies.addEventListener('click', () => {
+    localStorage.setItem('nurfutura_cookie_consent', 'accepted');
+    cookieBanner.style.display = 'none';
+    // If the user accepts and popup hasn't been seen, show the partnership popup
+    if (!localStorage.getItem('nurfutura_popup_seen')) showPopup();
+  });
+
+  declineCookies.addEventListener('click', () => {
+    localStorage.setItem('nurfutura_cookie_consent', 'declined');
+    cookieBanner.style.display = 'none';
+    // If cookies declined still allow popup to be seen once, but do not set tracking
+    if (!localStorage.getItem('nurfutura_popup_seen')) showPopup();
+  });
+
+  // On load: show cookie banner if not set, and show popup only if user accepted or if cookie not set (but we gate repeated)
+  window.addEventListener('load', () => {
+    showCookieBannerIfNeeded();
+    // If consent accepted, show popup (if not seen)
+    if (localStorage.getItem('nurfutura_cookie_consent') === 'accepted') {
+      showPopup();
+    } else {
+      // If user hasn't answered cookie banner, wait a little so cookie banner appears then popup triggers after user can decide.
+      // We'll not auto-show immediate popup to avoid interuption; instead show after 1.2s only if cookie present or not present but not seen.
+      setTimeout(() => {
+        // show popup if not seen yet (gives user a chance to accept cookies too)
+        if (!localStorage.getItem('nurfutura_popup_seen')) {
+          showPopup();
+        }
+      }, 1200);
+    }
+  });
+
+  // Ensure newsletter floating button accessible
+  document.querySelectorAll('.floating-newsletter a').forEach(a => {
+    a.addEventListener('focus', () => a.querySelector('i').classList.add('pulse'));
+    a.addEventListener('blur', () => a.querySelector('i').classList.remove('pulse'));
+  });
+
+  // Give service toggle text update (optional: reflect state)
+  document.querySelectorAll('.service-header').forEach(h => {
+    h.addEventListener('click', () => {
+      const expanded = h.getAttribute('aria-expanded') === 'true';
+      h.querySelector('.service-toggle').textContent = expanded ? 'Close' : 'View';
+    });
+  });
+
+  // Keyboard accessibility: escape closes popup
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (popup.classList.contains('active')) closePopup();
+      // collapse all service bodies
+      document.querySelectorAll('.service-header').forEach(h => {
+        h.setAttribute('aria-expanded','false');
+        const b = document.getElementById(h.dataset.target);
+        if (b) b.style.display = 'none';
+      });
+    }
+  });
+
+  // Progressive enhancement: ensure panels are hidden initially
+  document.querySelectorAll('.service-body').forEach(b => b.style.display = 'none');
+
+  // If the user visits from mobile, ensure nav accessible
+  // (nav toggle already wired above)
+
+  // IMPORTANT: If you want the NexaCore tool link changed to a different URL, update the two places above:
+  // 1) nav anchor href (in HTML)
+  // 2) visitToolBtn open url in JS
+</script>
+
+</body>
+</html>
